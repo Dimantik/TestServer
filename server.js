@@ -3,6 +3,7 @@ var app = express();
 
 
 app.get('/api/order', function (req, res) {
+    console.log('Connect!');
     res.send({
         "number": 235,
         "price": 1000
