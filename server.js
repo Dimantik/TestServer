@@ -1,20 +1,23 @@
-var express = require('express');
-var app = express();
+const express = require('express')
+const mongoose = require('mongoose')
+const config = require('./config')
+const routerOrders = require('./routes/router-orders')
+const routerAdmin = require('./routes/router-admin')
+const bodyParser = require('body-parser')
 
+const app = express()
+app.use(bodyParser.json())
+app.use('/api/orders', routerOrders)
+app.use('/api/admin', routerAdmin)
 
-app.use('/api/order', function (req, res, next) {
-    console.log('First Func!');
-    next();
+app.listen(config.port, () => {
+    console.log("Server has started!")
 })
 
-app.get('/api/order', function (req, res) {
-    console.log('Connect!');
-    res.send({
-        "number":  235436,
-        "price":  1000
-    });
-});
+// mongoose
+//     .connect(config.db_url_dev, {useNewUrlParser: true, useUnifiedTopology: true})
+//     .then( () => {
+        
+//     })
 
-app.listen(1337, function(){
-    console.log('Express server listening on port 1337');
-});
+
